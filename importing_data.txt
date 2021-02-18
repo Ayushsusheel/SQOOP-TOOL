@@ -1,0 +1,189 @@
+-->now we are ready to import data ....
+
+-->firstly we'll be viewing the files and folders present 
+
+>[cloudera@quickstart ~]$ ls
+cloudera-manager  eclipse                     library.java  Public
+cm_api.py         enterprise-deployment.json  Music         students.java
+Desktop           express-deployment.json     parcels       Templates
+Documents         kerberos                    Persons.java  Videos
+Downloads         lib                         Pictures      workspace
+
+
+-->now for importing the data write the data
+
+>sqoop import --connect jdbc:mysql://localhost/mysql --username root --password cloudera --table Persons --target-dir /user/cloudera/Persons_folder;
+
+now explaining the above command.....
+
+
+1)so here in place of localhost you can write the address that you are hosting or connected to ....
+
+2) write the username: root by deafualt 
+3)write the password you gave or try cloudera
+4)write the table which you want to import and see the details of it.
+5)give a target directory i gave as / user/cloudera and creating a folder name Persons_folder (write as you wish.)
+
+>sqoop import --connect jdbc:mysql://localhost/mysql --username root --password cloudera --table Persons --target-dir /user/cloudera/Persons_folder;
+
+
+-->after running this command this kind of interface would appear
+
+
+
+>Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+21/02/18 00:50:39 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.0
+21/02/18 00:50:39 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+21/02/18 00:50:40 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+21/02/18 00:50:40 INFO tool.CodeGenTool: Beginning code generation
+21/02/18 00:50:45 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `Persons` AS t LIMIT 1
+21/02/18 00:50:45 ERROR manager.SqlManager: Error executing statement: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mysql.Persons' doesn't exist
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'mysql.Persons' doesn't exist
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:377)
+	at com.mysql.jdbc.Util.getInstance(Util.java:360)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:978)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3887)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3823)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2435)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2582)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2530)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1907)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2030)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:777)
+	at org.apache.sqoop.manager.SqlManager.execute(SqlManager.java:786)
+	at org.apache.sqoop.manager.SqlManager.getColumnInfoForRawQuery(SqlManager.java:289)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypesForRawQuery(SqlManager.java:260)
+	at org.apache.sqoop.manager.SqlManager.getColumnTypes(SqlManager.java:246)
+	at org.apache.sqoop.manager.ConnManager.getColumnTypes(ConnManager.java:327)
+	at org.apache.sqoop.orm.ClassWriter.getColumnTypes(ClassWriter.java:1858)
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1657)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+21/02/18 00:50:45 ERROR tool.ImportTool: Import failed: java.io.IOException: No columns to generate for ClassWriter
+	at org.apache.sqoop.orm.ClassWriter.generate(ClassWriter.java:1663)
+	at org.apache.sqoop.tool.CodeGenTool.generateORM(CodeGenTool.java:106)
+	at org.apache.sqoop.tool.ImportTool.importTable(ImportTool.java:494)
+	at org.apache.sqoop.tool.ImportTool.run(ImportTool.java:621)
+	at org.apache.sqoop.Sqoop.run(Sqoop.java:147)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.sqoop.Sqoop.runSqoop(Sqoop.java:183)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:234)
+	at org.apache.sqoop.Sqoop.runTool(Sqoop.java:243)
+	at org.apache.sqoop.Sqoop.main(Sqoop.java:252)
+
+
+-->if this kind of issue is arising just change the database name in which you have created the table put it here like this:
+
+ sqoop import --connect jdbc:mysql://localhost/ABC --username root --password cloudera --table Persons --target-dir /user/cloudera/Persons_folder;
+
+-->here database name is ABC in which table Persons is present and then finally:
+
+Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+21/02/18 01:19:04 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.0
+21/02/18 01:19:04 WARN tool.BaseSqoopTool: Setting your password on the command-line is insecure. Consider using -P instead.
+21/02/18 01:19:07 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+21/02/18 01:19:07 INFO tool.CodeGenTool: Beginning code generation
+21/02/18 01:19:08 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `Persons` AS t LIMIT 1
+21/02/18 01:19:08 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `Persons` AS t LIMIT 1
+21/02/18 01:19:08 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /usr/lib/hadoop-mapreduce
+Note: /tmp/sqoop-cloudera/compile/330171ac283b8f682648ae80c0ff4d7f/Persons.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+21/02/18 01:19:24 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-cloudera/compile/330171ac283b8f682648ae80c0ff4d7f/Persons.jar
+21/02/18 01:19:24 WARN manager.MySQLManager: It looks like you are importing from mysql.
+21/02/18 01:19:24 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+21/02/18 01:19:24 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+21/02/18 01:19:24 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+21/02/18 01:19:24 INFO mapreduce.ImportJobBase: Beginning import of Persons
+21/02/18 01:19:24 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+21/02/18 01:19:27 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+21/02/18 01:19:30 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+21/02/18 01:19:31 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+21/02/18 01:19:57 INFO db.DBInputFormat: Using read commited transaction isolation
+21/02/18 01:19:57 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`Id`), MAX(`Id`) FROM `Persons`
+21/02/18 01:19:57 INFO db.IntegerSplitter: Split size: 0; Num splits: 4 from: 1 to: 3
+21/02/18 01:19:58 INFO mapreduce.JobSubmitter: number of splits:3
+21/02/18 01:19:58 INFO mapreduce.JobSubmitter
+21/02/18 01:19:59 INFO impl.YarnClientImpl
+21/02/18 01:20:00 INFO mapreduce.Job: Running job: job_1613634113588_0001
+21/02/18 01:20:58 INFO mapreduce.Job: Job job_1613634113588_0001 running in uber mode : false
+21/02/18 01:20:58 INFO mapreduce.Job:  map 0% reduce 0%
+21/02/18 01:22:08 INFO mapreduce.Job:  map 33% reduce 0%
+21/02/18 01:22:14 INFO mapreduce.Job:  map 100% reduce 0%
+21/02/18 01:22:15 INFO mapreduce.Job: Job job_1613634113588_0001 completed successfully
+21/02/18 01:22:15 INFO mapreduce.Job: Counters: 31
+	File System Counters
+		FILE: Number of bytes read=0
+		FILE: Number of bytes written=513912
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=295
+		HDFS: Number of bytes written=51
+		HDFS: Number of read operations=12
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=6
+	Job Counters 
+		Killed map tasks=1
+		Launched map tasks=3
+		Other local map tasks=3
+		Total time spent by all maps in occupied slots (ms)=177977
+		Total time spent by all reduces in occupied slots (ms)=0
+		Total time spent by all map tasks (ms)=177977
+		Total vcore-milliseconds taken by all map tasks=177977
+		Total megabyte-milliseconds taken by all map tasks=182248448
+	Map-Reduce Framework
+		Map input records=3
+		Map output records=3
+		Input split bytes=295
+		Spilled Records=0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=1229
+		CPU time spent (ms)=3960
+		Physical memory (bytes) snapshot=480239616
+		Virtual memory (bytes) snapshot=4731895808
+		Total committed heap usage (bytes)=315097088
+	File Input Format Counters 
+		Bytes Read=0
+	File Output Format Counters 
+		Bytes Written=51
+21/02/18 01:22:15 INFO mapreduce.ImportJobBase: Transferred 51 bytes in 165.07 seconds (0.309 bytes/sec)
+21/02/18 01:22:15 INFO mapreduce.ImportJobBase: Retrieved 3 records.
+
+
+--->finally we have retieved the records as shown above.
+
+-->for viewing the data just write
+
+
+>  [cloudera@quickstart ~]$ hdfs dfs -cat /user/cloudera/Persons_folder/*;
+1,Amit,90,Physics
+4,Sandeep,88,Physics
+7,Mani,89,Physics
+
+
+
+-------------------------------------------------------------------[  THANKYOU  ]-----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
