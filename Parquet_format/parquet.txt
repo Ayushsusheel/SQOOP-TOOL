@@ -1,0 +1,54 @@
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera;
+Found 11 items
+drwxr-xr-x   - cloudera cloudera          0 2021-02-18 01:22 /user/cloudera/Persons_folder
+drwxr-xr-x   - cloudera cloudera          0 2021-03-11 04:58 /user/cloudera/Persons_table_as_PARQUET_folder---------------------------------------(this is our targetted directory)
+
+drwxr-xr-x   - cloudera cloudera          0 2021-03-11 03:33 /user/cloudera/Persons_table_as_sequence_folder
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 00:40 /user/cloudera/my_Third_data
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 00:30 /user/cloudera/my_second_data
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 00:33 /user/cloudera/my_third_data
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-10 20:09 /user/cloudera/myfirstdata
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 04:04 /user/cloudera/students
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 00:55 /user/cloudera/students_6
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-11 01:15 /user/cloudera/students_7
+
+drwxr-xr-x   - cloudera cloudera          0 2021-02-18 01:03 /user/cloudera/testing_folder
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera/Persons_table_as_PARQUET_folder;-----------------------------------------------------------------(here we are viewing what is inside our folder)
+Found 5 items
+drwxr-xr-x   - cloudera cloudera          0 2021-03-11 04:57 /user/cloudera/Persons_table_as_PARQUET_folder/.metadata
+drwxr-xr-x   - cloudera cloudera          0 2021-03-11 04:58 /user/cloudera/Persons_table_as_PARQUET_folder/.signals
+-rw-r--r--   1 cloudera cloudera       1036 2021-03-11 04:58 /user/cloudera/Persons_table_as_PARQUET_folder/3ac65ebd-891c-4447-beeb-1e2cfeb4b2b9.parquet
+-rw-r--r--   1 cloudera cloudera       1041 2021-03-11 04:58 /user/cloudera/Persons_table_as_PARQUET_folder/5bc46cc8-0932-4616-bd0a-c1990b6135d0.parquet
+-rw-r--r--   1 cloudera cloudera       1031 2021-03-11 04:58 /user/cloudera/Persons_table_as_PARQUET_folder/d508e998-eb6a-4ff3-beb7-afc277f4ac59.parquet
+
+[cloudera@quickstart ~]$ hdfs dfs -cat /user/cloudera/Persons_table_as_PARQUET_folder/*;--------------------------------------------------------------------------------[this is what it looks like....]
+cat: `/user/cloudera/Persons_table_as_PARQUET_folder/.metadata': Is a directory
+cat: `/user/cloudera/Persons_table_as_PARQUET_folder/.signals': Is a directory
+PAR1,
+$",SinghSingh8Singh",AyushAyush8Ayush,
+$\HPersons%Id
+                          %LastName%
+                                      %	Firstname%%AgeL5IdVZ<&b
+                                                                                                       5LastNamedh&b<SinghSingh&�
+                                                                                                                                               5	Firstnamedh&�<AyushAyush&�5AgeVZ&�<�parquet.avro.schema�{"type":"record","name":"Persons","doc":"Sqoop import of Persons","fields":[{"name":"Id","type":["null","int"],"default":null,"columnName":"Id","sqlType":"4"},{"name":"LastName","type":["null","string"],"default":null,"columnName":"LastName","sqlType":"12"},{"name":"Firstname","type":["null","string"],"default":null,"columnName":"Firstname","sqlType":"12"},{"name":"Age","type":["null","int"],"default":null,"columnName":"Age","sqlType":"4"}],"tableName":"Persons"}9parquet-mr version 1.5.0-cdh5.13.0 (build ${buildNumber})>PAR1PAR1,
+$ $,SharmaSharma<Sharma",AkashAkash8Akash,
+$\HPersons%Id
+                          %LastName%
+                                      %	Firstname%%AgeLIdVZ<&b
+                                                                                                       LastNamejn&b<SharmaSharma&�
+                                                                                                                                                   	Firstnamedh&�<AkashAkash&�AgeVZ&�<�parquet.avro.schema�{"type":"record","name":"Persons","doc":"Sqoop import of Persons","fields":[{"name":"Id","type":["null","int"],"default":null,"columnName":"Id","sqlType":"4"},{"name":"LastName","type":["null","string"],"default":null,"columnName":"LastName","sqlType":"12"},{"name":"Firstname","type":["null","string"],"default":null,"columnName":"Firstname","sqlType":"12"},{"name":"Age","type":["null","int"],"default":null,"columnName":"Age","sqlType":"4"}],"tableName":"Persons"}9parquet-mr version 1.5.0-cdh5.13.0 (build ${buildNumber})@PAR1PAR1,
+$",KumarKumar8Kumar ,AjayAjay4Ajay,
+$\HPersons%Id
+                          %LastName%
+                                      %	Firstname%%AgeLIdVZ<&b
+                                                                                                       LastNamedh&b<KumarKumar&�
+                                                                                                                                               	Firstname^b&�<AjayAjay&�AgeVZ&�<�parquet.avro.schema�{"type":"record","name":"Persons","doc":"Sqoop import of Persons","fields":[{"name":"Id","type":["null","int"],"default":null,"columnName":"Id","sqlType":"4"},{"name":"LastName","type":["null","string"],"default":null,"columnName":"LastName","sqlType":"12"},{"name":"Firstname","type":["null","string"],"default":null,"columnName":"Firstname","sqlType":"12"},{"name":"Age","type":["null","int"],"default":null,"columnName":"Age","sqlType":"4"}],"tableName":"Persons"}9parquet-mr version 1.5.0-cdh5.13.0 (build ${buildNumber})<PAR1[cloudera@quickstart ~]$ 
+
