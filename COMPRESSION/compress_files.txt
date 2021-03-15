@@ -1,1 +1,92 @@
+[cloudera@quickstart ~]$ sqoop import --connect jdbc:mysql://localhost/upes_db --username root --password-file /user/cloudera/password.txt --table students  --target-dir /user/cloudera/students_compress --compress; 
 
+<--------------------------------------------------------------------------------------------------------------------------(this command is for compression in Gzip format)
+
+Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+21/03/13 00:44:06 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.13.0
+21/03/13 00:44:09 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+21/03/13 00:44:09 INFO tool.CodeGenTool: Beginning code generation
+21/03/13 00:44:10 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `students` AS t LIMIT 1
+21/03/13 00:44:10 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `students` AS t LIMIT 1
+21/03/13 00:44:10 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /usr/lib/hadoop-mapreduce
+Note: /tmp/sqoop-cloudera/compile/e24b6317cc17f38112acc358d95411e3/students.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+21/03/13 00:44:15 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-cloudera/compile/e24b6317cc17f38112acc358d95411e3/students.jar
+21/03/13 00:44:15 WARN manager.MySQLManager: It looks like you are importing from mysql.
+21/03/13 00:44:15 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+21/03/13 00:44:15 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+21/03/13 00:44:15 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+21/03/13 00:44:15 INFO mapreduce.ImportJobBase: Beginning import of students
+21/03/13 00:44:15 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+21/03/13 00:44:15 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+21/03/13 00:44:15 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+21/03/13 00:44:15 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+21/03/13 00:44:20 INFO db.DBInputFormat: Using read commited transaction isolation
+21/03/13 00:44:20 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`Rollno`), MAX(`Rollno`) FROM `students`
+21/03/13 00:44:20 INFO db.IntegerSplitter: Split size: 2; Num splits: 4 from: 1 to: 9
+21/03/13 00:44:20 INFO mapreduce.JobSubmitter: number of splits:4
+21/03/13 00:44:21 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1615471072174_0010
+21/03/13 00:44:22 INFO impl.YarnClientImpl: Submitted application application_1615471072174_0010
+21/03/13 00:44:22 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1615471072174_0010/
+21/03/13 00:44:22 INFO mapreduce.Job: Running job: job_1615471072174_0010
+21/03/13 00:44:35 INFO mapreduce.Job: Job job_1615471072174_0010 running in uber mode : false
+21/03/13 00:44:35 INFO mapreduce.Job:  map 0% reduce 0%
+21/03/13 00:44:58 INFO mapreduce.Job:  map 50% reduce 0%
+21/03/13 00:45:01 INFO mapreduce.Job:  map 100% reduce 0%
+21/03/13 00:45:02 INFO mapreduce.Job: Job job_1615471072174_0010 completed successfully
+21/03/13 00:45:03 INFO mapreduce.Job: Counters: 30
+	File System Counters
+		FILE: Number of bytes read=0
+		FILE: Number of bytes written=685384
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=425
+		HDFS: Number of bytes written=235
+		HDFS: Number of read operations=16
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=8
+	Job Counters 
+		Launched map tasks=4
+		Other local map tasks=4
+		Total time spent by all maps in occupied slots (ms)=84131
+		Total time spent by all reduces in occupied slots (ms)=0
+		Total time spent by all map tasks (ms)=84131
+		Total vcore-milliseconds taken by all map tasks=84131
+		Total megabyte-milliseconds taken by all map tasks=86150144
+	Map-Reduce Framework
+		Map input records=9
+		Map output records=9
+		Input split bytes=425
+		Spilled Records=0
+		Failed Shuffles=0
+		Merged Map outputs=0
+		GC time elapsed (ms)=1175
+		CPU time spent (ms)=13530
+		Physical memory (bytes) snapshot=765206528
+		Virtual memory (bytes) snapshot=6311641088
+		Total committed heap usage (bytes)=650117120
+	File Input Format Counters 
+		Bytes Read=0
+	File Output Format Counters 
+		Bytes Written=235
+21/03/13 00:45:03 INFO mapreduce.ImportJobBase: Transferred 235 bytes in 47.9656 seconds (4.8993 bytes/sec)
+21/03/13 00:45:03 INFO mapreduce.ImportJobBase: Retrieved 9 records.
+
+
+[cloudera@quickstart ~]$ hdfs dfs -cat /user/cloudera/students_compress/*;-------------------------------------------------------------------(concatinating i.e -cat for viewing the data inside our students_compress directory)
+3�q��,ѱ4�	Ȩ,�L.�2�	.	Y���&�dpxA"3�	J�ձ��q��-(-I-�2�	N�KIM-�dTg&s�'3�����ӱ0��M,��2�	��ձ0�q��-(-I-�;��!3��M��Ա��	Ȩ,�L.���q�.�H�Ա�ʕdpY�8���X�8��
+[cloudera@quickstart ~]$ 
+[cloudera@quickstart ~]$ 
+[cloudera@quickstart ~]$ 
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/cloudera/students_compress/*;--------------------------------------------------------(here for listing all the partitions that are created )
+-rw-r--r--   1 cloudera cloudera          0 2021-03-13 00:45 /user/cloudera/students_compress/_SUCCESS
+
+-rw-r--r--   1 cloudera cloudera         52 2021-03-13 00:44 /user/cloudera/students_compress/part-m-00000.gz-------------------------(.gz shows us that our data is in Gzip compression format)
+
+-rw-r--r--   1 cloudera cloudera         57 2021-03-13 00:44 /user/cloudera/students_compress/part-m-00001.gz
+
+-rw-r--r--   1 cloudera cloudera         53 2021-03-13 00:44 /user/cloudera/students_compress/part-m-00002.gz
+
+-rw-r--r--   1 cloudera cloudera         73 2021-03-13 00:45 /user/cloudera/students_compress/part-m-00003.gz
